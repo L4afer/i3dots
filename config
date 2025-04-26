@@ -1,0 +1,195 @@
+# ~/.config/i3/config
+# i3 config file (v4)
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is specified in the bar {} block.
+# Use "xft:" prefix for scalable fonts, e.g., "xft:JetBrains Mono 10"
+# Add "Nerd Font" or similar if using icons.
+font pango: DepartureMono Nerd Font Mono 14
+
+# Set Mod Key (Mod1 = Alt, Mod4 = Super/Win)
+set $mod Mod4
+exec_always --no-startup-id polybar
+exec_always --no-startup-id feh --bg-scale ~/Downloads/daa.png
+exec_always --no-startup-id setxkbmap -layout us,cz -option 'grp:alt_shift_toggle'
+exec_always --no-startup-id picom
+
+# Your preferred terminal emulator
+set $term alacritty 
+# Your preferred application launcher (dmenu or rofi)
+# set $menu dmenu_run -nb '#1e1e2e' -nf '#cdd6f4' -sb '#89b4fa' -sf '#1e1e2e' -fn 'JetBrains Mono-10' 
+# set $menu rofi -show drun -theme-str 'window { background-color: #1e1e2e; } * { text-color: #cdd6f4; } element-text, element-icon { background-color: inherit; text-color: inherit; } element selected { background-color: #89b4fa; text-color: #1e1e2e; }'
+
+# --- Keybindings ---
+
+# F keys
+bindsym Mod1+K exec --no-startup-id sudo /usr/local/bin/set_fnmode.sh
+
+#Screenshots 
+bindsym Mod1+Return exec flameshot gui
+
+#start ALT+TAB
+bindsym $mod+Tab exec rofi -show run
+
+# Start terminal
+bindsym $mod+Return exec $term
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+
+# Start dmenu (application launcher)
+bindsym $mod+D exec rofi -show drun
+
+# Change focus
+# Or use Vim keys without Shift:
+# bindsym $mod+h focus left
+# bindsym $mod+j focus down
+# bindsym $mod+k focus up
+# bindsym $mod+l focus right
+bindsym $mod+Left focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+Right focus right
+
+# Move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# Split orientation
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+# Fullscreen mode
+bindsym $mod+f fullscreen toggle
+
+# Change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# Focus the parent container
+bindsym $mod+a focus parent
+
+# --- Workspaces ---
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# Switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+bindsym $mod+- workspace number $ws11
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+bindsym $mod+Shift+- move container to workspace number $ws11
+# --- i3 Interaction ---
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+# Restart i3 inplace
+bindsym $mod+Shift+r restart
+# Exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# --- Resize Mode ---
+mode "resize" {
+        # Resize windows with arrow keys or vim keys
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # Same bindings using arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # Back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+O mode "default"
+}
+bindsym $mod+O mode "resize"
+
+# --- Catppuccin Mocha Colors ---
+# Class                 Border  Bground Text    Indicator Child_border
+client.focused          #cba6f7 #1e1e2e #cdd6f4 #cba6f7   #cba6f7
+client.focused_inactive #cba6f7 #1e1e2e #bac2de #cba6f7   #cba6f7
+client.unfocused        #966aca #1e1e2e #a6adc8 #313244   #966aca
+client.urgent           #cba6f7 #1e1e2e #cdd6f4 #cba6f7   #cba6f7
+client.placeholder      #cba6f7 #1e1e2e #cdd6f4 #cba6f7   #cba6f7
+client.background       #28283d
+ 
+# --- Gaps ---
+ gaps inner 10
+ gaps outer 1
+
+# Smart gaps (only apply gaps when >1 window)
+ smart_gaps off
+
+# --- Bar ---
+#bar {
+#        status_command polybar
+#}
+# Autostart applications (optional)
+# exec --no-startup-id nitrogen --restore # Wallpaper
+# exec --no-startup-id picom --config ~/.config/picom/picom.conf 
+# exec --no-startup-id nm-applet # Network manager applet
+# exec --no-startup-id blueman-applet # Bluetooth applet
+# exec --no-startup-id volumeicon # Volume control in tray
+
+
+# POP UPS
+
+# Make all dialog windows floating
+for_window [window_type="dialog"] floating enable
+
+# Make windows with a specific role floating (e.g., for some application popups)
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+
+# Make windows from a specific application class floating
+# Replace 'Firefox' with the actual class name you found with xprop
+for_window [class="Firefox"] floating enable
+
+# Make windows with a specific instance floating (useful if an app has multiple window types but you only want one to float)
+# Replace 'Places' with the actual instance name you found
+for_window [instance="Places"] floating enable
+
+# Combine criteria
+# Make dialogs from a specific class floating
+for_window [class="Gimp" window_type="dialog"] floating enable
