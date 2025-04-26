@@ -1,0 +1,65 @@
+* {
+    background:      #1e1e2e;
+    background-alt:  #181825;
+    foreground:      #cdd6f4;
+    selected:        #313244;
+    active:          #89b4fa;
+    urgent:          #f38ba8;
+    border-color:    #89b4fa;
+    highlight:       #f5e0dc;
+    spacing:         6;
+    border-radius:   10px;
+    padding:         6px;
+    width:           50%;
+}
+
+window {
+    background-color: @background;
+    border: 2px;
+    border-color: @border-color;
+}
+
+mainbox {
+    children: [inputbar, message, listview];
+    spacing: 10px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+inputbar {
+    background-color: @background-alt;
+    text-color: @foreground;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+listview {
+    background-color: @background-alt;
+    lines: 10;
+    columns: 1;
+    spacing: 6px;
+    border-radius: 8px;
+    fixed-height: true;
+    dynamic: false;
+}
+
+element {
+    background-color: @background-alt;
+    text-color: @foreground;
+    padding: 5px;
+    border-radius: 6px;
+}
+
+element selected {
+    background-color: @selected;
+    text-color: @highlight;
+}
+
+element urgent {
+    text-color: @urgent;
+}
+
+element active {
+    text-color: @active;
+}
+
